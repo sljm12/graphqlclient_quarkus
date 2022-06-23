@@ -3,6 +3,8 @@ package org.acme.model;
 import static io.smallrye.graphql.client.core.Document.document;
 import static io.smallrye.graphql.client.core.Field.field;
 import static io.smallrye.graphql.client.core.Operation.operation;
+import static io.smallrye.graphql.client.core.Argument.arg;
+import static io.smallrye.graphql.client.core.Argument.args;
 
 import java.util.List;
 
@@ -38,9 +40,11 @@ public class StarWarsResource {
 		return query;
 	}
 	
-	private Document createQuery() {
+	private Document createQuery(int limit, int offset) {
 		Document query = document(operation(
-				 field("_helloworld_article", field("id"), field("rating"), field("title"))));
+				 field("_helloworld_article", 
+						 args(arg("limit", limit), arg("offset", offset)),
+						 field("id"), field("rating"), field("title"))));
 		return query;
 	}
 
@@ -70,7 +74,7 @@ public class StarWarsResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Blocking
 	public List<Article> getAllArticlesViaDynamic() throws Exception {
-		Document query = createQuery();
+		Document query = createQuery(10,0);
 		System.out.println(query.toString());
 		Response response = dynamicClient.executeSync(query);
 		System.out.println(response.toString());
@@ -92,12 +96,26 @@ public class StarWarsResource {
 		return response.getData();
 		//return response.getList(Article.class, "_helloworld_article_aggregate");
 	}
+	
+	@GET
+	@Path("/dynamic2")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Blocking
+	public JsonObject getAllArticlesWithAuthorWithLimits() throws Exception {
+		Document query = createAggregateQuery();
+		System.out.println(query.toString());
+		Response response = dynamicClient.executeSync(query);
+		System.out.println(response.toString());
+		response.hasData();
+		return response.getData();
+		//return response.getList(Article.class, "_helloworld_article_aggregate");
+	}
 
 	@GET
 	@Path("/query")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String checkQuery() {
-		Document query = createQuery();
+		Document query = createQuery(10,0);
 
 		return query.build();
 	}
