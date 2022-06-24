@@ -104,6 +104,11 @@ public class StarWarsResource {
 		return response.getList(Article.class, "_helloworld_article");
 	}
 	
+	/**
+	 * Get the data via response.getData
+	 * @return
+	 * @throws Exception
+	 */
 	@GET
 	@Path("/dynamic1")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -118,6 +123,26 @@ public class StarWarsResource {
 		//return response.getList(Article.class, "_helloworld_article_aggregate");
 	}
 	
+	/**
+	 * Get the data and maps to the object 
+	 * Key is that the data returned is in the format 
+	 * 
+	 * {
+    "_helloworld_article_aggregate": {
+      "nodes": [
+        {
+          "author": {
+            "id": 3,
+            "name": "Alysa Beecker"
+          },
+          "id": 1,
+          "rating": 3,
+          "title": "Oh, hi , Marty. I didn't hear you come in. Fascinating device, this video unit."
+        },....
+	 * So in ArticleConnection class we have a List of nodes of type Article, where Article has Author inside
+	 * @return
+	 * @throws Exception
+	 */
 	@GET
 	@Path("/dynamic2")
 	@Produces(MediaType.APPLICATION_JSON)

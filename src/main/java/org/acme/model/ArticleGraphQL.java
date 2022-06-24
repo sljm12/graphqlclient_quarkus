@@ -7,6 +7,12 @@ import io.smallrye.graphql.client.typesafe.api.GraphQLClientApi;
 
 @GraphQLClientApi(configKey = "star-wars-typesafe")
 public interface ArticleGraphQL {
+	/**
+	 * @Query would be the query name that we are calling.  
+	 * @param limit
+	 * @param offset
+	 * @return
+	 */
 	@Query("_helloworld_article")
 	List<Article> getArticles(int limit, int offset);
 	
