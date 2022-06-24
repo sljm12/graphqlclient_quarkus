@@ -14,6 +14,14 @@ This is a sample app that uses Hasura and Quarkus to show how Quarkus using smal
 
 You can just run "quarkus dev" to run the application in development mode. The application will run on port 9000.
 
+## Examples
+
+There are typesafe and dynamic examples 
+
+## References
+* [Quarkus Graphql Client Guide](https://quarkus.io/guides/smallrye-graphql-client)
+* [Smallrye GraphQL Guide](https://smallrye.io/smallrye-graphql/1.4.3/)
+
 
 
 
